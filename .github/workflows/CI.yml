@@ -19,21 +19,22 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
+
     - name: Build with Maven
       run: mvn -B package --file pom.xml -DskipTests
 
-  run-project:
-    runs-on: ubuntu-latest
+#  run-project:
+#    runs-on: ubuntu-latest
+#
+#    needs: build
+#    steps:
+#      - uses: actions/checkout@v3
+    - name: Running the project
+      run: mvn spring-boot:run
 
-    needs: build
-    steps:
-      - uses: actions/checkout@v3
-      - name: Running the project
-        run: mvn spring-boot:run
+    - name: Installing K6
+      run: sudo apt-get update |
+        sudo apt-get install k6
 
-      - name: Installing K6
-        run: sudo apt-get update |
-          sudo apt-get install k6
-
-      - name: Running K6
-        run: k6 run K6/Get-Pacientes.js
+    - name: Running K6
+      run: k6 run K6/Get-Pacientes.js
