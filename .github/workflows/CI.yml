@@ -9,30 +9,31 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-#      - name: building DB Container
-#        run: |
-#          docker build -t doctor-desk-db --platform linux/amd64 db/
-#
-#      - name: running DB Container
-#        run: |
-#          docker run -itd --name doctor-desk-db doctor-desk-db
-#
-#      - name: building API Container
-#        run: |
-#          docker build -t doctor-desk-api --platform linux/amd64 .
-#
-#      - name: running API Container
-#        run: |
-#          docker run -itd --name doctor-desk-api doctor-desk-api
+      #      - name: building DB Container
+      #        run: |
+      #          docker build -t doctor-desk-db --platform linux/amd64 db/
+      #
+      #      - name: running DB Container
+      #        run: |
+      #          docker run -itd --name doctor-desk-db doctor-desk-db
+      #
+      #      - name: building API Container
+      #        run: |
+      #          docker build -t doctor-desk-api --platform linux/amd64 .
+      #
+      #      - name: running API Container
+      #        run: |
+      #          docker run -itd --name doctor-desk-api doctor-desk-api
 
-      - name: Installing HomeBrew
-        run: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+      - name: Installing Snap
+        run: sudo apt update |
+          sudo apt install snapd
 
-      - name: Waiting for Brew installation
-        run: sleep 15
+      - name: Waiting for Snap installation
+        run: sleep 5
 
       - name: Installing K6
-        run: brew install k6
+        run: sudo snap install k6
 
       - name: Running K6
         run: k6 run K6/Get-Pacientes.js
