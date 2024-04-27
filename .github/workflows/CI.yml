@@ -22,7 +22,8 @@ jobs:
 
       - name: copying IP
         run: |
-          DATASOURCE_IP=`docker container inspect doctor-desk-db --format {{.NetworkSettings.Networks.bridge.IPAddress}}`
+          DATASOURCE_IP=`docker container inspect doctor-desk-db --format {{.NetworkSettings.Networks.bridge.IPAddress}}` |
+          docker container inspect doctor-desk-db
 
       - name: waiting for copy IP
         run: sleep 5
