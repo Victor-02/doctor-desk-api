@@ -24,6 +24,9 @@ jobs:
         run: |
           DATASOURCE_IP=`docker container inspect doctor-desk-db --format {{.NetworkSettings.Networks.bridge.IPAddress}}`
 
+      - name: waiting for copy IP
+        run: sleep 5
+
       - name: building API Container
         run: |
           docker build -t doctor-desk-api --platform linux/amd64 --build-arg DATASOURCE_IP=$DATASOURCE_IP . 
