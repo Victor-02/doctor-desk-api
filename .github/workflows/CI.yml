@@ -9,21 +9,21 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      #      - name: building DB Container
-      #        run: |
-      #          docker build -t doctor-desk-db --platform linux/amd64 db/
-      #
-      #      - name: running DB Container
-      #        run: |
-      #          docker run -itd --name doctor-desk-db doctor-desk-db
-      #
-      #      - name: building API Container
-      #        run: |
-      #          docker build -t doctor-desk-api --platform linux/amd64 .
-      #
-      #      - name: running API Container
-      #        run: |
-      #          docker run -itd --name doctor-desk-api doctor-desk-api
+      - name: building DB Container
+        run: |
+          docker build -t doctor-desk-db --platform linux/amd64 db/
+
+      - name: running DB Container
+        run: |
+          docker run -itd --name doctor-desk-db doctor-desk-db
+
+      - name: building API Container
+        run: |
+          docker build -t doctor-desk-api --platform linux/amd64 .
+
+      - name: running API Container
+        run: |
+          docker run -itd --name doctor-desk-api doctor-desk-api
 
       - name: Installing Snap
         run: sudo apt update |

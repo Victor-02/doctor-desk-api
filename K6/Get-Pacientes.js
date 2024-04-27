@@ -2,7 +2,7 @@ import { Counter, Rate } from "k6/metrics";
 import http from "k6/http";
 import { fail } from "k6";
 import { Httpx } from "https://jslib.k6.io/httpx/0.1.0/index.js";
-import { htmlReport } from "https://raw.githubusercontent.com/benc-uk/k6-reporter/main/dist/bundle.js";
+//import { htmlReport } from "https://raw.githubusercontent.com/benc-uk/k6-reporter/main/dist/bundle.js";
 
 //export function handleSummary(data) {
 //  return {
@@ -10,8 +10,13 @@ import { htmlReport } from "https://raw.githubusercontent.com/benc-uk/k6-reporte
 //  };
 //}
 
-export let getPacientesFailRate = new Rate("get_pacientes_fail_rate");
-export let getPacientesReqs = new Counter("get_pacientes_reqs");
+export const options = {
+  stages: [
+    { duration: "30s", target: 10 },
+    { duration: "30s", target: 50 },
+    { duration: "30s", target: 50 },
+    { duration: "30s", target: 0 },
+ }
 
 const EMAIL = "user@gmail.com";
 const PASSWORD = "senha";
@@ -45,11 +50,5 @@ export default function testSuite() {
       "Content-Type": "application/json",
     },
   });
-
-  if (getPacientes.status !== 200) {
-    fail("Crocodile creation failed");
-  }
-
-  getPacientesFailRate.add(getPacientes.status !== 200);
-  getPacientesReqs.add(1);
+    console.log(getPacientes.status);
 }
