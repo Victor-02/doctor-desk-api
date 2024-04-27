@@ -16,6 +16,7 @@ export const options = {
     { duration: "30s", target: 50 },
     { duration: "30s", target: 50 },
     { duration: "30s", target: 0 },
+  ]
  }
 
 const EMAIL = "user@gmail.com";
