@@ -13,13 +13,12 @@ jobs:
         run: |
           docker build -t doctor-desk-db --platform linux/amd64 db/
 
-      - name: waiting DB Container
-        run: |
-          docker images 
-
       - name: running DB Container
         run: |
-          docker run -itd --name doctor-desk-db doctor-desk-db |
+          docker run -itd --name doctor-desk-db doctor-desk-db 
+
+      - name: copying IP
+        run: |
           DATASOURCE_IP=`docker container inspect doctor-desk-db --format {{.NetworkSettings.Networks.bridge.IPAddress}}`
 
 #  build-api:
