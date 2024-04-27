@@ -9,12 +9,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: pull DB Image
+      - name: pull and run DB Container
         run: |
-          docker pull victorvcasemiro/doctor-desk-db:doctor-desk-db
-
-      - name: run DB Container
-        run: |
+          docker pull victorvcasemiro/doctor-desk-db:doctor-desk-db |
           docker run -itd --name doctor-desk-db victorvcasemiro/doctor-desk-db:doctor-desk-db |
           DATASOURCE_IP=`docker container inspect doctor-desk-db --format {{.NetworkSettings.Networks.bridge.IPAddress}}`
 
