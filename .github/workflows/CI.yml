@@ -15,7 +15,7 @@ jobs:
 
       - name: waiting DB Container
         run: |
-          sleep 15 
+          docker images 
 
       - name: running DB Container
         run: |
