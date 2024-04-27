@@ -9,15 +9,21 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: build and run DB Container
+      - name: building DB Container
         run: |
           docker build -t doctor-desk-db --platform linux/amd64 db/ |
+
+      - name: running DB Container
+        run: |
           docker run -itd --name doctor-desk-db doctor-desk-db |
           DATASOURCE_IP=`docker container inspect doctor-desk-db --format {{.NetworkSettings.Networks.bridge.IPAddress}}`
 
-      - name: build and running API Container
+      - name: building API Container
         run: |
           docker build -t doctor-desk-api --platform linux/amd64 --build-arg DATASOURCE_IP=$DATASOURCE_IP api/ |
+
+      - name: running API Container
+        run: |
           docker run -itd --name doctor-desk-api -e DATASOURCE_IP=$DATASOURCE_IP doctor-desk-api
 
       - name: Installing K6
