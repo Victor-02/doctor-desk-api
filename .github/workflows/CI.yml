@@ -3,35 +3,43 @@ name: DoctorDesk CI
 on: [ push, pull_request ]
 
 jobs:
-  build:
+  build-db:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
 
       - name: building DB Container
+
         run: |
           docker build -t doctor-desk-db --platform linux/amd64 db/ 
 
+  run-db:
+     runs-on: ubuntu-latest
+     needs: build-db
+     steps:
       - name: running DB Container
         run: |
           docker run -itd --name doctor-desk-db doctor-desk-db |
           DATASOURCE_IP=`docker container inspect doctor-desk-db --format {{.NetworkSettings.Networks.bridge.IPAddress}}`
 
-      - name: building API Container
-        run: |
-          docker build -t doctor-desk-api --platform linux/amd64 --build-arg DATASOURCE_IP=$DATASOURCE_IP api/ |
-
-      - name: running API Container
-        run: |
-          docker run -itd --name doctor-desk-api -e DATASOURCE_IP=$DATASOURCE_IP doctor-desk-api
-
-      - name: Installing K6
-        run: sudo gpg -k |
-          sudo gpg --no-default-keyring --keyring /usr/share/keyrings/k6-archive-keyring.gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys C5AD17C747E3415A3642D57D77C6C491D6AC1D69 --allow-unauthenticated |
-          echo "deb [signed-by=/usr/share/keyrings/k6-archive-keyring.gpg] https://dl.k6.io/deb stable main" | sudo tee /etc/apt/sources.list.d/k6.list |
-          sudo apt-get update |
-          sudo apt-get install k6
-
-      - name: Running K6
-        run: k6  run K6/Get-Pacientes.js
+#  build-api:
+#      runs-on: ubuntu-latest
+#      steps:
+#      - name: building API Container
+#        run: |
+#          docker build -t doctor-desk-api --platform linux/amd64 --build-arg DATASOURCE_IP=$DATASOURCE_IP api/ |
+#
+#      - name: running API Container
+#        run: |
+#          docker run -itd --name doctor-desk-api -e DATASOURCE_IP=$DATASOURCE_IP doctor-desk-api
+#
+#      - name: Installing K6
+#        run: sudo gpg -k |
+#          sudo gpg --no-default-keyring --keyring /usr/share/keyrings/k6-archive-keyring.gpg --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys C5AD17C747E3415A3642D57D77C6C491D6AC1D69 --allow-unauthenticated |
+#          echo "deb [signed-by=/usr/share/keyrings/k6-archive-keyring.gpg] https://dl.k6.io/deb stable main" | sudo tee /etc/apt/sources.list.d/k6.list |
+#          sudo apt-get update |
+#          sudo apt-get install k6
+#
+#      - name: Running K6
+#        run: k6  run K6/Get-Pacientes.js
