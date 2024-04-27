@@ -15,7 +15,7 @@ jobs:
 
       - name: running DB Container
         run: |
-          docker run -itd --name doctor-desk-db doctor-desk-db 
+          docker run -it --name doctor-desk-db doctor-desk-db 
 
       - name: copying IP
         run: |
@@ -27,7 +27,7 @@ jobs:
 
       - name: running API Container
         run: |
-          docker run -itd --name doctor-desk-api -e DATASOURCE_IP=$DATASOURCE_IP doctor-desk-api
+          docker run -it --name doctor-desk-api -e DATASOURCE_IP=$DATASOURCE_IP doctor-desk-api
 
       - name: Installing K6
         run: sudo gpg -k |
