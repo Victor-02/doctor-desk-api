@@ -14,6 +14,6 @@ ENV DATASOURCE_PASSWORD=root
 
 EXPOSE 8080
 
-RUN pwd
+RUN ls -la
 
 CMD ["mvn", "spring-boot:run"]
