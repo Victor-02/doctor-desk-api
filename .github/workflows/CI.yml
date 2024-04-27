@@ -15,7 +15,10 @@ jobs:
 
       - name: running DB Container
         run: |
-          docker run -i --name doctor-desk-db doctor-desk-db 
+          docker run -itd --name doctor-desk-db doctor-desk-db 
+
+      - name: waiting for DB to start
+        run: sleep 10
 
       - name: copying IP
         run: |
