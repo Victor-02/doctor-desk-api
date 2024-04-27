@@ -3,7 +3,7 @@ name: DoctorDesk CI
 on: [ push, pull_request ]
 
 jobs:
-  build-db:
+  run-tests:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout

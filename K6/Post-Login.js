@@ -14,7 +14,7 @@ const EMAIL = "user@gmail.com";
 const PASSWORD = "senha";
 
 const session = new Httpx({
-  baseURL: "http://localhost:8080/api",
+  baseURL: "http://172.17.0.3:8080/api",
   headers: { "Content-Type": "application/json" },
   timeout: 5000,
 });
@@ -29,7 +29,7 @@ export function authToken() {
   );
 }
 export default function () {
-  const url = "http://localhost:8080/api/user/login";
+  const url = "http://172.17.0.3:8080/api/user/login";
 
   const payload = JSON.stringify({
     email: "user@gmail.com",
