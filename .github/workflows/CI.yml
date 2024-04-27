@@ -26,7 +26,10 @@ jobs:
 #          docker run -itd --name doctor-desk-api doctor-desk-api
 
       - name: Installing HomeBrew
-        run: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" && sleep 5
+        run: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+      - name: Waiting for Brew installation
+        run: sleep 15
 
       - name: Installing K6
         run: brew install k6
