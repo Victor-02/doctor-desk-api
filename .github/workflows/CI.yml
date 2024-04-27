@@ -16,26 +16,26 @@ jobs:
       - name: running DB Container
         run: |
           docker run -itd --name doctor-desk-db doctor-desk-db 
-
-      - name: waiting for DB to start
-        run: sleep 10
-
-      - name: copying IP
-        run: |
-          DATASOURCE_IP=`docker container inspect doctor-desk-db --format {{.NetworkSettings.Networks.bridge.IPAddress}}` |
-          docker container inspect doctor-desk-db
-
-      - name: waiting for copy IP
-        run: sleep 5
+#
+#      - name: waiting for DB to start
+#        run: sleep 10
+#
+#      - name: copying IP
+#        run: |
+#          DATASOURCE_IP=`docker container inspect doctor-desk-db --format {{.NetworkSettings.Networks.bridge.IPAddress}}` |
+#
+#      - name: waiting for copy IP
+#        run: |
+#          sleep 5 |
+#          echo $DATASOURCE_IP
 
       - name: building API Container
         run: |
-          docker build -t doctor-desk-api --platform linux/amd64 --build-arg DATASOURCE_IP=$DATASOURCE_IP . 
+          docker build -t doctor-desk-api --platform linux/amd64 . 
 
       - name: running API Container
         run: |
-          echo $DATASOURCE_IP
-#          docker run -i --name doctor-desk-api -e DATASOURCE_IP=$DATASOURCE_IP doctor-desk-api
+          docker run -i --name doctor-desk-api doctor-desk-api
 #
 #      - name: Installing K6
 #        run: sudo gpg -k |
