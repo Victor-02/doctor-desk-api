@@ -12,14 +12,7 @@ jobs:
       - name: building DB Container
 
         run: |
-          docker build -t doctor-desk-db --platform linux/amd64 db/ 
-
-  run-db:
-     runs-on: ubuntu-latest
-     needs: build-db
-     steps:
-      - name: running DB Container
-        run: |
+          docker build -t doctor-desk-db --platform linux/amd64 db/ |
           docker run -itd --name doctor-desk-db doctor-desk-db |
           DATASOURCE_IP=`docker container inspect doctor-desk-db --format {{.NetworkSettings.Networks.bridge.IPAddress}}`
 
