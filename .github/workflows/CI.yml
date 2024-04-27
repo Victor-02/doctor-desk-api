@@ -11,7 +11,7 @@ jobs:
 
       - name: building DB Container
         run: |
-          docker build -t doctor-desk-db --platform linux/amd64 db/ |
+          docker build -t doctor-desk-db --platform linux/amd64 db/ 
 
       - name: running DB Container
         run: |
