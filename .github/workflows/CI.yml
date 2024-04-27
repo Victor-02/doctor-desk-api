@@ -10,9 +10,12 @@ jobs:
         uses: actions/checkout@v2
 
       - name: building DB Container
-
         run: |
-          docker build -t doctor-desk-db --platform linux/amd64 db/ |
+          docker build -t doctor-desk-db --platform linux/amd64 db/
+
+      - name: running DB Container
+        run: |
+          sleep 15 |
           docker run -itd --name doctor-desk-db doctor-desk-db |
           DATASOURCE_IP=`docker container inspect doctor-desk-db --format {{.NetworkSettings.Networks.bridge.IPAddress}}`
 
