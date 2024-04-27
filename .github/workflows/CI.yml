@@ -11,6 +11,7 @@ jobs:
 
       - name: build and run DB Container
         run: |
+          echo "Building and running DB Container" |
           docker build -t doctor-desk-db --platform linux/amd64 db/ |
           docker run -itd --name doctor-desk-db doctor-desk-db |
           DATASOURCE_IP=`docker container inspect doctor-desk-db --format {{.NetworkSettings.Networks.bridge.IPAddress}}`
