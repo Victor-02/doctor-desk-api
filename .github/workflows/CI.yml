@@ -26,7 +26,7 @@ jobs:
 
       - name: building API Container
         run: |
-          docker build -t doctor-desk-api --platform linux/amd64 --build-arg DATASOURCE_IP=$DATASOURCE_IP api/ 
+          docker build -t doctor-desk-api --platform linux/amd64 --build-arg DATASOURCE_IP=$DATASOURCE_IP . 
 
       - name: running API Container
         run: |
